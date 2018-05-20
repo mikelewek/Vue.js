@@ -1,4 +1,4 @@
-const ApiUrl = 'http://websvr-01/api/crm/contact/getbypvid/';
+const ApiUrl = 'http://xxx/xx/xx/xx/getbypvid/';
 const app = new Vue({
 	el:'#app',
 	data:{
