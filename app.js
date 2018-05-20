@@ -1,12 +1,9 @@
-Vue.filter('formatDate', function(d) {
-	if(!window.Intl) return d;
-	return new Intl.DateTimeFormat('en-US').format(new Date(d));
-}); 
-
+const ApiUrl = 'http://xxx/xxx/xx/';
 const app = new Vue({
 	el:'#app',
 	data:{
 		pvId:'',
+		pvIdList:'',
 		results:[],
 		noResults:false,
 		searching:false
@@ -14,13 +11,27 @@ const app = new Vue({
 	methods:{
 		search:function() {
 			this.searching = true;
-			fetch(`http://xxxx/xx/xx/${encodeURIComponent(this.pvId)}`)
+			fetch(`${ApiUrl}${encodeURIComponent(this.pvId)}`)
 			.then(res => res.json())
 			.then(res => {
 				this.searching = false;
 				this.results = res.results;
 				this.noResults = this.results.length === 0;
 			});
+		},
+		multiSearch:function() {
+			this.searching = true;
+			this.pvIdList = this.pvIdList.split("\n");
+			var t = this.pvIdList;
+
+			for (let i = 0; i < this.pvIdList.length; i++) {
+				fetch(`${ApiUrl}${encodeURIComponent(this.pvIdList[i])}`)
+				.then(res => res.json())
+				.then(res => {
+					this.searching = false;
+					this.results += res.results;
+				});
+			}
 		}
 	}
 });
