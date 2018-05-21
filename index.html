@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -22,13 +21,33 @@
             <button @click="multiSearch">Search</button>
             <hr />
 
-            <div v-for="result in results" class="result">
-                <b>Name:</b> {{result.firstName}} {{result.lastName}}
-                <b>PV Id:</b> {{result.korePrimaryArchticsId}}
-                <b>ContactId:</b> {{result.ContactId}}
-                <b>Email:</b> {{result.emailAddress1}}
-                <br clear="left">
+            <div>
+                <div class="result">
+                    <template v-for="result in results">
+                        {{result.firstName}} {{result.lastName}}
+                        <br />
+                    </template>
+                </div>
+                <div class="result">
+                    <template v-for="result in results">
+                        {{result.korePrimaryArchticsId}}
+                        <br />
+                    </template>
+                </div>
+                <div class="result">
+                    <template v-for="result in results">
+                        {{result.contactId}}
+                        <br />
+                    </template>
+                </div>
+                <div class="result">
+                    <template v-for="result in results">
+                        {{result.emailAddress1}}
+                        <br />
+                    </template>
+                </div>
             </div>
+            <br />
 
             <div v-show="searching">
                 <i>Searching...</i>
