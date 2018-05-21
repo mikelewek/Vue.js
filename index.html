@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,34 +11,36 @@
 		</style>
 		<link rel="stylesheet" href="style.css">
 	</head>
-	<body>
+    <body>
 
-		<div id="app" v-cloak>
-			<h1>Search</h1>
-			<textarea v-model="pvIdList" type="search" cols="45" rows=10></textarea>
-			<br/>
-			<button @click="multiSearch">Search</button>
+        <div id="app" v-cloak>
+            <h1>Search</h1>
+            Test id: 100384068
+            <br />
+            <textarea v-model="pvIdList" type="search" cols="45" rows=10></textarea>
+            <br />
+            <button @click="multiSearch">Search</button>
+            <hr />
 
-			<hr/>
-			<input v-model="pvId" type="search">
-			<button @click="search">Search</button>
+            <div v-for="result in results" class="result">
+                <b>Name:</b> {{result.firstName}} {{result.lastName}}
+                <b>PV Id:</b> {{result.korePrimaryArchticsId}}
+                <b>ContactId:</b> {{result.ContactId}}
+                <b>Email:</b> {{result.emailAddress1}}
+                <br clear="left">
+            </div>
 
-			<div v-for="result in results" class="result">
-				<b>ContactId:</b> {{result.contactId}}<br/>
-				<b>First Name:</b> {{result.firstName}}<br/>
-				<b>Last Name:</b> {{result.lastName}}<br/>
-				<br clear="left">
-			</div>
+            <div v-show="searching">
+                <i>Searching...</i>
+            </div>
+            <div v-if="noResults">
+                <i>No Results</i>
+            </div>
+        </div>
+        <br />
 
-			<div v-if="searching">
-				<i>Searching...</i>
-			</div>
-
-		</div>
-		<br/>
-		Test id: 100384068
-
-		<script src="https://unpkg.com/vue"></script>
-		<script src="app.js"></script>
-	</body>
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+        <script src="app.js"></script>
+    </body>
 </html>

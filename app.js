@@ -1,37 +1,33 @@
-const ApiUrl = 'http://xxx/xx/xx/xx/getbypvid/';
+const ApiUrl = '..//';
+
 const app = new Vue({
 	el:'#app',
 	data:{
-		pvId:'',
 		pvIdList:'',
 		results:[],
 		noResults:false,
 		searching:false
 	},
 	methods:{
-		search:function() {
-			this.searching = true;
-			fetch(`${ApiUrl}${encodeURIComponent(this.pvId)}`)
-			.then(res => res.json())
-			.then(res => {
-				this.searching = false;
-				this.results = res.results;
-				this.noResults = this.results.length === 0;
-			});
-		},
-		multiSearch:function() {
-			this.searching = true;
-			this.pvIdList = this.pvIdList.split("\n");
-			var t = this.pvIdList;
+        multiSearch: function () {
+            if (this.pvIdList.length === 0) {
+                this.searching = false;
+                this.noResults = true;
+                return;
+            }
 
-			for (let i = 0; i < this.pvIdList.length; i++) {
-				fetch(`${ApiUrl}${encodeURIComponent(this.pvIdList[i])}`)
-				.then(res => res.json())
-				.then(res => {
-					this.searching = false;
-					this.results += res.results;
-				});
-			}
+            var json = this.pvIdList.split("\n");
+
+            this.$http.post(ApiUrl, json)
+                .then(function (res) {
+                    this.searching = false;
+                    this.noResults = false;
+                    this.results = res.body;
+
+                }, function (response) {
+                    // Error
+                    console.log(res)
+                });
 		}
 	}
 });
