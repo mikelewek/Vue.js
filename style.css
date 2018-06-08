@@ -1,4 +1,22 @@
+.header {
+    display: inline-block;
+    font-weight: bold;
+}
 .result {
     float: left;
     width: 300px;
+    line-height: 20px;
+}
+.navbar {
+    background-color: #8fbce6;
+    color: #fff !important;
+    font-size: 22px !important;
+    text-transform: uppercase !important;
+    font-family: Helvetica, sans-serif;
+    text-shadow: 1px 1px 0px #444 !important;
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1440px;
+    }
 }

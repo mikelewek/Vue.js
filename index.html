@@ -2,25 +2,53 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Vue.js with AJAX</title>
+        <title>CRM Contact Search</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
 		<style>
 		[v-cloak] {display: none}
 		</style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="style.css">
 	</head>
-    <body>
-
+    <body>   
+        <div class="navbar box-shadow">
+            <div class="container d-flex justify-content-between">
+                <strong>CRM Bulk Query Tool</strong>
+            </div>
+        </div>
+        <div class="container">
+            <br />
         <div id="app" v-cloak>
-            <h1>Search</h1>
-            Test id: 100384068
+            Search by:
+            <select v-model="searchBy">
+                <option value="pvid" selected>PV Id</option>
+                <option value="contactid">Contact Id</option>
+                <option value="email">Email</option>
+                <option value="fullname">Full Name</option>
+                <option value="lastname">Last Name</option>
+            </select>
+
+            <br />
             <br />
             <textarea v-model="pvIdList" type="search" cols="45" rows=10></textarea>
             <br />
-            <button @click="multiSearch">Search</button>
-            <hr />
+            <button @click="multiSearch" class="btn">Search</button>
+            <br />
+            <br />
+            <ul>
+                <li>Id's/emails/etc should be separated to be one line per item in the search box.</li>
+                <li>All but PV Id option will query back multiple results if present.</li>
+            </ul>
 
+            <div class="header">
+                <div class="result">Name</div>
+                <div class="result">PV Id</div>
+                <div class="result">Contact Id</div>
+                <div class="result">Email</div>
+            </div>
+
+            <hr />
             <div>
                 <div class="result">
                     <template v-for="result in results">
@@ -53,11 +81,11 @@
                 <i>Searching...</i>
             </div>
             <div v-if="noResults">
-                <i>No Results</i>
+                <i>No Results {{errorMessage}}</i>
             </div>
         </div>
         <br />
-
+    </div>
         <script src="https://unpkg.com/vue"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
         <script src="app.js"></script>
